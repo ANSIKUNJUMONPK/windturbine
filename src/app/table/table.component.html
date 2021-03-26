@@ -1,0 +1,69 @@
+<!-- <app-sidenav> -->
+<br />
+<mat-form-field appearance="fill" class="align">
+  <mat-label>Farm</mat-label>
+  <mat-select
+    multiple
+    [(value)]="filterFarmList"
+    (openedChange)="onToggleFilter($event)"
+  >
+    <mat-option (click)="onFarmReset()">Reset</mat-option>
+    <mat-option *ngFor="let farm of farmList" [value]="farm">{{
+      farm
+    }}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>Last Inspection</mat-label>
+  <mat-select
+    multiple
+    [(value)]="filterInspectionDateList"
+    (openedChange)="onToggleFilter($event)"
+  >
+    <mat-option (click)="onDateReset()">Reset</mat-option>
+    <mat-option
+      *ngFor="let inspectionDate of inspectionDateList"
+      [value]="inspectionDate"
+      >{{ inspectionDate }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>WTG ID</mat-label>
+  <mat-select
+    multiple
+    [(value)]="filterWtgIdList"
+    (openedChange)="onToggleFilter($event)"
+  >
+    <mat-option (click)="onIdReset()">Reset</mat-option>
+    <mat-option *ngFor="let wtgId of wtgIdList" [value]="wtgId">{{
+      wtgId
+    }}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>WTG Category</mat-label>
+  <mat-select
+    multiple
+    [(value)]="filterWtgCatList"
+    (openedChange)="onToggleFilter($event)"
+  >
+    <mat-option (click)="onCatReset()">Reset</mat-option>
+    <mat-option *ngFor="let wtgCatObj of wtgCatList" [value]="wtgCatObj.value">
+      <div fxLayoutAlign="start center" fxLayoutGap="10px">
+        <img [src]="wtgCatObj.imgSrc" />
+        <div>{{ wtgCatObj.label }}</div>
+      </div>
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-icon>filter_list</mat-icon>
+
+<ag-grid-angular
+  style="width: 100%; height: 500px"
+  class="ag-theme-alpine"
+  [rowData]="rowDataList"
+  [columnDefs]="columnDefs"
+  (rowClicked)="onRowClick($event.data)"
+>
+</ag-grid-angular>

@@ -1,0 +1,118 @@
+.img::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.img1 {
+  float: left;
+  width: 20%;
+  padding-right: 10%;
+  padding: 5px;
+}
+.sep{
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+.note{
+  padding-right: 90%;
+}
+.filter {
+  padding-top: 30px;
+}
+.sizing {
+  border-radius:-50px;
+  padding-top: -20px;
+  padding-right:10px;
+  padding-bottom: 20px;
+  // display: inline-block;
+  width: 100px;
+  height: 100px;
+  // margin-left:2px;
+}
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+  padding: 30px;
+}
+
+.version-info {
+  font-size: 8pt;
+  float: right;
+  margin: 8px;
+}
+.heading {
+  background-color: rgb(153, 198, 243);
+  color:white;
+  height: 20%;
+}
+#padding{
+  padding-left: 10px;;
+
+}
+.mat-nav-list{
+  padding-top: 10%;
+  padding-left: 35%;
+}
+.color{
+  color: white;;
+}
+.mat {
+  cursor: pointer;
+  padding-left: 95%;
+}
+
+#side {
+  padding-left: 2%;
+}
+.image {
+  align-content: space-between;
+}
+#siz {
+  font-size: medium;
+}
+.wid {
+  width: 60%;
+  background-color: rgb(16, 16, 65);
+  color: white;
+}
+.name {
+  font-size: xx-large;
+}
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 350px;
+  
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+  width: 40%;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.align {
+  align-items: flex-end;
+}
+.input-box{
+  width:100%;
+  height: 130px;
+  
+}
+.spacing{
+  padding-bottom: 50%;
+  padding-left: 20%;
+}
+.imageNoteLength{
+  padding-left: 10%;
+ 
+} 
+
