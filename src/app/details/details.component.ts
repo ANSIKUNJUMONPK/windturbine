@@ -50,6 +50,7 @@ export class DetailsComponent {
   });
 
   index: number = 0;
+  isChange: boolean;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -75,7 +76,7 @@ export class DetailsComponent {
   inspectionList: inspectiondata[] = JSON.parse(
     JSON.stringify(this.turbinelistService.InspectionData)
   );
-
+  // filter
   private setFilter(): void {
     const wtgIdList: string[] = [];
     const dateList: string[] = [];
@@ -83,13 +84,14 @@ export class DetailsComponent {
       wtgIdList.push(element.wtg_id);
       dateList.push(element.inspection_date.slice(0, 10));
     });
-
+    // wtgId sorting
     wtgIdList.sort((a, b) => {
       const lowerA = a.trim().toLowerCase();
       const lowerB = b.trim().toLowerCase();
 
       return lowerA === lowerB ? 0 : lowerA > lowerB ? 1 : -1;
     });
+    // date sorting
     dateList.sort((a: any, b: any) => {
       var val1: any = new Date(a.inspection_date).getTime();
       var val2: any = new Date(b.inspection_date).getTime();
@@ -140,17 +142,17 @@ export class DetailsComponent {
     console.log(this.inspectionBladeB);
     console.log(this.inspectionBladeC);
   }
-  getImgSrc(imageCat: Category): string {
-    let imageSrc = '../../assets/images/blade-';
+  // getImgSrc(imageCat: Category): string {
+  //   let imageSrc = '../../assets/images/blade-';
 
-    const cat = imageCat.validated ?? imageCat.auto;
-    imageSrc += CatColors[cat];
+  //   const cat = imageCat.validated ?? imageCat.auto;
+  //   imageSrc += CatColors[cat];
 
-    const isValidated = imageCat.validated != null;
-    imageSrc += isValidated ? '-filled.png' : '-unfilled.png';
+  //   const isValidated = imageCat.validated != null;
+  //   imageSrc += isValidated ? '-filled.png' : '-unfilled.png';
 
-    return imageSrc;
-  }
+  //   return imageSrc;
+  // }
   bladeClick(notes: Note[]) {
     this.sidenavOpen = true;
     this.noteSet = notes;
@@ -162,6 +164,7 @@ export class DetailsComponent {
     this.sidenavOpen = true;
     this.noteSet = notes;
   }
+  //dialogbox
   openModal(templateRef: any) {
     let dialogRef = this.dialog.open(templateRef, {
       width: '500px',
@@ -172,6 +175,8 @@ export class DetailsComponent {
       console.log('The dialog was closed');
     });
   }
+
+  //function to save notes
   saveNote() {
     let date = new Date().getTime();
     let note: Note = {
@@ -183,15 +188,17 @@ export class DetailsComponent {
     console.log(this.noteSet);
     this.noteForm.reset();
   }
+  //to clear input
   clearInput() {
     (document.getElementById('input') as HTMLInputElement).value = '';
     this.noteForm.reset();
   }
+  //delete input
   deleteInput(index: number) {
     this.index = index;
     console.log(index);
   }
-
+  //to confirm delete
   deleteConfirm() {
     if (this.index > -1) {
       this.noteSet.splice(this.index, 1);
@@ -203,14 +210,47 @@ export class DetailsComponent {
     this.index = index;
     console.log(index);
     this.noteForm.patchValue({
-      notes:this.noteSet[index].text
-    })
+      notes: this.noteSet[index].text,
+    });
   }
-  editNote(){
+  //to edit notes
+  editNote() {
     this.dialog.closeAll();
-    this.noteSet[this.index].text=this.noteForm.controls['notes'].value;
+    this.noteSet[this.index].text = this.noteForm.controls['notes'].value;
     this.noteForm.reset();
-    (document.getElementById('input') as HTMLInputElement).value='';
+    (document.getElementById('input') as HTMLInputElement).value = '';
   }
+  //to compare
+  dialogboxCompare(templateRef: any) {
+    let dialogRef = this.dialog.open(templateRef, {
+      width: '500px',
+      height: '250px',
+    });
 
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
+  
+  bladeImgSet(data: any) {
+    const bladeKey = 'blade' + data.bladeType;
+
+    let bladeCat: number =
+      this[bladeKey as keyof DetailsComponent].images[0].image_cat
+        .validated ??
+      this[bladeKey as keyof DetailsComponent].images[0].image_cat.auto;
+
+    this[bladeKey as keyof DetailsComponent].images.forEach(
+      (element: any) => {
+        const cat = element.image_cat.validated ?? element.image_cat.auto;
+        if (cat > bladeCat) {
+          bladeCat = cat;
+        }
+      }
+    );
+    
+    this[bladeKey as keyof DetailsComponent].blade_cat.auto = bladeCat;
+    this.isChange = !this.isChange;
+   
+  }
 }

@@ -1,31 +1,49 @@
+
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
     <mat-toolbar></mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#"><span class="material-icons">
-          dashboard
-        </span></a>
-      <a mat-list-item href="#"><span class="material-icons">
-          bluetooth_drive
-        </span></a>
-      <a mat-list-item href="#"><span class="material-icons">
-          description
-        </span></a>
+      <a mat-list-item href="#"
+        ><span class="material-icons"> dashboard </span></a
+      >
+      <a mat-list-item href="#"
+        ><span class="material-icons"> bluetooth_drive </span></a
+      >
+      <a mat-list-item href="#"
+        ><span class="material-icons"> description </span></a
+      >
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="white">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+      >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span class="align"><button mat-icon-button class="example-icon user-icon"
-          aria-label="Example icon-button with heart icon">
+      <span class="mat-icon"
+        ><button
+          mat-icon-button
+          class="example-icon user-icon"
+          aria-label="Example icon-button with heart icon"
+        >
           <i class="material-icons custom">account_circle</i>
-        </button></span>
+        </button></span
+      >
     </mat-toolbar>
 
     <app-table></app-table>
+    
   </mat-sidenav-content>
 </mat-sidenav-container>

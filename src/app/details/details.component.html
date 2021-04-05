@@ -1,3 +1,4 @@
+<!-- sidenav  right side note  -->
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav
     #drawer
@@ -8,33 +9,32 @@
     [(opened)]="sidenavOpen"
     position="end"
   >
-    <!-- side note -->
-    <div class="heading">
+    <!-- side  add note -->
+    <div class="sidenote-heading">
       <mat-toolbar>
-        <div class="color">
+        <div class="sidenote-color">
           <b>
             {{
               "Blade" + idSelected.slice(5, 6) + "/" + "Image -" + imageIndex
             }}</b
           >
         </div>
-        <mat-icon (click)="drawer.toggle()" class="mat">close</mat-icon><br />
+        <mat-icon (click)="drawer.toggle()" class="maticon">close</mat-icon
+        ><br />
       </mat-toolbar>
-      <h3 id="padding">Add/Edit Notes</h3>
+      <h3 id="addnote-padding">Add/Edit Notes</h3>
     </div>
-
+    <!-- adding notes-->
     <mat-nav-list>
       <button mat-raised-button (click)="openModal(input)">ADD NOTES</button>
     </mat-nav-list>
-    <div *ngFor="let notes of noteSet; let j = index">
+    <div class="note-spacing-left" *ngFor="let notes of noteSet; let j = index">
       <hr />
-      <div >
-        <b> {{ JSON.stringify(notes.date) | date }}</b>
+      <div>
+        <b> {{ JSON.stringify(notes.date) | date: "medium" }}</b>
       </div>
       <br />
-      <div >
-        {{ JSON.stringify(notes.text) }} <br /><br />
-      </div>
+      <div>{{ JSON.stringify(notes.text) }} <br /><br /></div>
       <button
         mat-raised-button
         color="primary"
@@ -74,32 +74,35 @@
     </mat-toolbar>
     <br />
     <!-- page  -->
-    <div class="bounds" id="side">
+    <div class="bounds" id="page-content">
       <div>
         <!-- blade A -->
         <div class="content" fxLayout="row" fxLayout.xs="row" fxFlexFill>
           <div fxFlex="30" fxFlex.xs="40%">
-            <div class="name" *ngFor="let i of loadArray">
+            <div class="blade" *ngFor="let i of loadArray">
               {{ i.wtg_id }}
               <br />
               <br />
               <br />
-              <div class="name">
+              <div class="blade">
                 {{ i.blades[0].label }}
               </div>
+                <app-cat-options [category]="i.blades[0].blade_cat" [isBlade]='true'></app-cat-options>
+                
+
               <br />
               <br />
-              <div id="siz">
+              <div id="blade-size">
                 SN:- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
                 &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                 &nbsp;{{ i.inspection_date.slice(0, 4) }}
               </div>
 
-              <div id="siz">Blade Model:{{ i.blade_model }}</div>
+              <div id="blade-size">Blade Model:{{ i.blade_model }}</div>
             </div>
 
             <br />
-            <mat-card class="wid">
+            <mat-card class="blade-data">
               <div *ngFor="let i of loadArray">
                 WTG: {{ i.wtg_id }}<br />
                 FARM: {{ i.farm }}<br />
@@ -109,27 +112,26 @@
             </mat-card>
             <br />
             <div fxLayout="row" fxLayoutAlign="center stretch">
-              <div class="note" fxLayout="row" fxLayoutAlign="center stretch">
+              <div
+                class="blade-note"
+                fxLayout="row"
+                fxLayoutAlign="center stretch"
+              >
                 <img
                   src="assets\images\notes.png"
                   (click)="bladeClick(inspectionBladeA.notes)"
                 />
 
-                <div
-                  fxLayout="row"
-                  fxLayoutAlign="center stretch"
-                  
-                >
+                <div fxLayout="row" fxLayoutAlign="center stretch">
                   {{ inspectionBladeA.notes?.length }}
                 </div>
-               
               </div>
-              
             </div>
           </div>
           <!-- filter -->
           <div fxFlex="70" fxFlex.xs="60%">
             <div class="filter">
+              <!-- wtgID Filter -->
               <mat-form-field appearance="fill">
                 <mat-label>{{ wtgIdFilterList }}</mat-label>
                 <mat-select
@@ -141,6 +143,7 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
+              <!-- inspection data filter -->
               <mat-form-field appearance="fill">
                 <mat-label>{{ inspectionDateFilterList }}</mat-label>
                 <mat-select
@@ -154,33 +157,37 @@
               </mat-form-field>
 
               <mat-icon>filter_list</mat-icon>
+              <button
+                mat-raised-button
+                class="compare"
+                (click)="dialogboxCompare(templateCompare)"
+              >
+                Compare
+              </button>
               <br />
             </div>
             <br />
             <div>
               <div
-                class="img1"
+                class="blade-image"
                 *ngFor="let i of inspectionBladeA.images; let j = index"
               >
                 <img
                   mat-card-image
                   src="assets\images\{{ i.URI }}"
-                  class="sizing"
+                  class="image-size"
                 />
                 <div
                   fxFlex="50%"
                   fxLayout="column"
                   fxLayoutAlign="space-around center"
                 >
-                  <img [src]="getImgSrc(i.image_cat)" />
-                  {{
-                    "cat. " +
-                      (i.image_cat.validated != null
-                        ? i.image_cat.validated
-                        : i.image_cat.auto)
-                  }}
+                <app-cat-options [category]="i.image_cat" [bladeLabel]="inspectionBladeA.blade_id" (catEvent)="bladeImageSet($event)"></app-cat-options>
+                  
+
+                  
                   <div
-                    class="sep"
+                    class="image-note"
                     fxLayout="row"
                     fxLayoutAlign="center stretch"
                   >
@@ -208,25 +215,25 @@
         <!-- blade B -->
         <div class="content" fxLayout="row" fxLayout.xs="row" fxFlexFill>
           <div fxFlex="30" fxFlex.xs="40%">
-            <div class="name" *ngFor="let i of loadArray; let j = index">
+            <div class="blade" *ngFor="let i of loadArray; let j = index">
               <br />
               <br />
               <br />
-              <div class="name">
+              <div class="blade">
                 {{ i.blades[1].label }}
               </div>
               <br />
               <br />
-              <div id="siz">
+              <div id="blade-size">
                 SN:- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
                 &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                 &nbsp;{{ i.inspection_date.slice(0, 4) }}
               </div>
 
-              <div id="siz">Blade Model:{{ i.blade_model }}</div>
+              <div id="blade-size">Blade Model:{{ i.blade_model }}</div>
             </div>
             <br />
-            <mat-card class="wid">
+            <mat-card class="blade-data">
               <div *ngFor="let i of loadArray">
                 WTG: {{ i.wtg_id }}<br />
                 FARM: {{ i.farm }}<br />
@@ -242,34 +249,29 @@
             <div class="filter">
               <br />
               <div
-                class="img1"
+                class="blade-image"
                 *ngFor="let i of inspectionBladeB.images; let j = index"
               >
                 <img
                   mat-card-image
                   src="assets\images\{{ i.URI }}"
-                  class="sizing"
+                  class="image-size"
                 />
                 <div
                   fxFlex="50%"
                   fxLayout="column"
                   fxLayoutAlign="space-around center"
                 >
-                  <img [src]="getImgSrc(i.image_cat)" />
-                  {{
-                    "cat. " +
-                      (i.image_cat.validated != null
-                        ? i.image_cat.validated
-                        : i.image_cat.auto)
-                  }}
+                <app-cat-options [category]="i.image_cat" [bladeLabel]="inspectionBladeB.blade_id" (catEvent)="bladeImageSet($event)"></app-cat-options>
+                 
                   <div
-                    class="sep"
+                    class="image-note"
                     fxLayout="row"
                     fxLayoutAlign="center stretch"
                   >
                     <img
                       src="assets\images\notes.png"
-                      class="spacing"
+                      class="note-spacing"
                       (click)="
                         imageClick(
                           inspectionBladeB.inspection_date,
@@ -295,25 +297,25 @@
         <!-- blade C -->
         <div class="content" fxLayout="row" fxLayout.xs="row" fxFlexFill>
           <div fxFlex="30" fxFlex.xs="40%">
-            <div class="name" *ngFor="let i of loadArray; let j = index">
+            <div class="blade" *ngFor="let i of loadArray; let j = index">
               <br />
               <br />
               <br />
-              <div class="name">
+              <div class="blade">
                 {{ i.blades[2].label }}
               </div>
               <br />
               <br />
-              <div id="siz">
+              <div id="blade-size">
                 SN:- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
                 &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                 &nbsp;{{ i.inspection_date.slice(0, 4) }}
               </div>
 
-              <div id="siz">Blade Model:{{ i.blade_model }}</div>
+              <div id="blade-size">Blade Model:{{ i.blade_model }}</div>
             </div>
             <br />
-            <mat-card class="wid">
+            <mat-card class="blade-data">
               <div *ngFor="let i of loadArray">
                 WTG: {{ i.wtg_id }}<br />
                 FARM: {{ i.farm }}<br />
@@ -329,34 +331,29 @@
           <div fxFlex="70" fxFlex.xs="60%">
             <div class="filter">
               <div
-                class="img1"
+                class="blade-image"
                 *ngFor="let i of inspectionBladeC.images; let j = index"
               >
                 <img
                   mat-card-image
                   src="assets\images\{{ i.URI }}"
-                  class="sizing"
+                  class="image-size"
                 />
                 <div
                   fxFlex="50%"
                   fxLayout="column"
                   fxLayoutAlign="space-around center"
                 >
-                  <img [src]="getImgSrc(i.image_cat)" />
-                  {{
-                    "cat. " +
-                      (i.image_cat.validated != null
-                        ? i.image_cat.validated
-                        : i.image_cat.auto)
-                  }}
+                <app-cat-options [category]="i.image_cat" [bladeLabel]="inspectionBladeC.blade_id" (catEvent)="bladeImageSet($event)"></app-cat-options>
+                  
                   <div
-                    class="sep"
+                    class="image-note"
                     fxLayout="row"
                     fxLayoutAlign="center stretch"
                   >
                     <img
                       src="assets\images\notes.png"
-                      class="spacing"
+                      class="note-spacing"
                       (click)="
                         imageClick(
                           inspectionBladeC.inspection_date,
@@ -376,7 +373,7 @@
         <!-- <-- dialog-box starts here-->
         <ng-template #input>
           <form [formGroup]="noteForm">
-            <mat-icon mat-dialog-close class="mat">close</mat-icon><br />
+            <mat-icon mat-dialog-close class="maticon">close</mat-icon><br />
             <input
               type="text"
               class="input-box"
@@ -385,7 +382,6 @@
               value="inputValue"
             />
 
-            <hr />
             <!-- to clear input -->
             <button mat-raised-button color="primary" (click)="clearInput()">
               clear
@@ -401,10 +397,35 @@
             </button>
           </form>
         </ng-template>
+        <!-- to edit note -->
+        <ng-template #editbox>
+          <form [formGroup]="noteForm">
+            <mat-icon mat-dialog-close class="maticon">close</mat-icon><br />
+            <input
+              type="text"
+              class="input-box"
+              formControlName="notes"
+              id="input"
+              value="inputValue"
+            />
+            <button mat-raised-button color="primary" (click)="clearInput()">
+              clear
+            </button>
+            <button
+              mat-raised-button
+              color="accent"
+              style="margin-left: 292px"
+              (click)="editNote()"
+              [disabled]="noteForm.invalid"
+            >
+              save
+            </button>
+          </form>
+        </ng-template>
         <!-- deletebox starts here -->
         <ng-template #deletebox>
           <form [formGroup]="noteForm">
-            <mat-icon mat-dialog-close class="mat">close</mat-icon><br />
+            <mat-icon mat-dialog-close class="maticon">close</mat-icon><br />
             <br /><br />
             <h2>Are you sure you want to delete this?</h2>
 
@@ -423,10 +444,11 @@
             </button>
           </form>
         </ng-template>
-        <!-- editbox -->
-        <ng-template #editbox>
-          <form [formGroup]="noteForm">
-            <mat-icon mat-dialog-close class="mat">close</mat-icon><br />
+        <!-- Comparebox -->
+        <ng-template #templateCompare>
+          <div></div>
+          <!-- <form [formGroup]="noteForm">
+            <mat-icon mat-dialog-close class="maticon">close</mat-icon><br />
             <input
               type="text"
               class="input-box"
@@ -444,17 +466,13 @@
               mat-raised-button
               color="accent"
               style="margin-left: 292px"
-              (click)="editNote()"
+              (click)="dialogboxCompare"
               [disabled]="noteForm.invalid"
             >
               save
             </button>
-          </form>
+          </form> -->
         </ng-template>
-      </div>
-      <!-- </mat-sidenav-content
-  ></mat-sidenav-container
-> -->
-    </div></mat-sidenav-content
-  ></mat-sidenav-container
->
+        <hr />
+      </div></div></mat-sidenav-content
+></mat-sidenav-container>

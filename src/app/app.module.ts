@@ -25,6 +25,8 @@ import {FormsModule} from '@angular/forms';
 
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CatOptionsComponent } from './cat-options/cat-options.component';
+
 
 const routes: Routes = []
 @NgModule({
@@ -32,7 +34,8 @@ const routes: Routes = []
     AppComponent,
     DetailsComponent,
     TableComponent,
-    MainComponent
+    MainComponent,
+    CatOptionsComponent
     
   ],
   imports: [
@@ -53,7 +56,7 @@ const routes: Routes = []
     FormsModule,
     MatCardModule,
     MatGridListModule,
-    MatDialogModule
+    MatDialogModule 
    
   
   ],

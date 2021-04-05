@@ -21,7 +21,10 @@ export class TableComponent implements OnInit {
   filterWtgIdList: string[] = [];
   filterWtgCatList: string[] = [];
 
-  constructor(private turbinelistService: TurbinelistService,private router: Router ) {}
+  constructor(
+    private turbinelistService: TurbinelistService,
+    private router: Router
+  ) {}
   ngOnInit() {
     this.setColoumDef();
     this.setFilters();
@@ -46,7 +49,7 @@ export class TableComponent implements OnInit {
   onCatReset() {
     this.filterWtgCatList = [];
   }
-//filter 
+  //Filter
   onToggleFilter(isOpen: boolean): void {
     if (isOpen) {
       return;
@@ -96,7 +99,7 @@ export class TableComponent implements OnInit {
       );
     }
   }
-
+  //Table
   private setColoumDef(): void {
     this.columnDefs = [
       { field: 'wtg_class' },
@@ -188,26 +191,27 @@ export class TableComponent implements OnInit {
       inspectionDateList.push(element.next_inspection.slice(0, 4));
       wtgIdList.push(element.wtg_id);
     });
-
+    //sorting farmlist
     farmList.sort((a, b) => {
-      const lowerA = a.trim().toLowerCase();//trim-to avoid spaces
+      const lowerA = a.trim().toLowerCase(); //trim-to avoid spaces
       const lowerB = b.trim().toLowerCase();
 
       return lowerA === lowerB ? 0 : lowerA > lowerB ? 1 : -1;
     });
-
+    //sorting inspection date list
     inspectionDateList.sort((a, b) => (a === b ? 0 : a > b ? 1 : -1));
-
+    //sorting wtg id list
     wtgIdList.sort((a, b) => {
       const lowerA = a.trim().toLowerCase();
       const lowerB = b.trim().toLowerCase();
 
       return lowerA === lowerB ? 0 : lowerA > lowerB ? 1 : -1;
     });
-
+    //to avoid repetation
     this.farmList = Array.from(new Set(farmList));
     this.inspectionDateList = Array.from(new Set(inspectionDateList));
     this.wtgIdList = Array.from(new Set(wtgIdList));
+    //category list in filter
     this.wtgCatList = [
       {
         label: 'cat. 5',

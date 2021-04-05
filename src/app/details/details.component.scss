@@ -4,26 +4,26 @@
   display: table;
 }
 
-.img1 {
+.blade-image {
   float: left;
   width: 20%;
   padding-right: 10%;
   padding: 5px;
 }
-.sep{
+.image-note {
   padding-top: 10px;
   padding-bottom: 30px;
 }
-.note{
+.blade-note {
   padding-right: 90%;
 }
 .filter {
   padding-top: 30px;
 }
-.sizing {
-  border-radius:-50px;
+.image-size {
+  border-radius: -50px;
   padding-top: -20px;
-  padding-right:10px;
+  padding-right: 10px;
   padding-bottom: 20px;
   // display: inline-block;
   width: 100px;
@@ -41,42 +41,45 @@ body {
   float: right;
   margin: 8px;
 }
-.heading {
+.sidenote-heading {
   background-color: rgb(153, 198, 243);
-  color:white;
+  color: white;
   height: 20%;
 }
-#padding{
-  padding-left: 10px;;
-
+#addnote-padding {
+  padding-left: 20px;
 }
-.mat-nav-list{
+.note-spacing-left {
+  padding-left: 10px;
+}
+
+.mat-nav-list {
   padding-top: 10%;
   padding-left: 35%;
 }
-.color{
-  color: white;;
+.sidenote-color {
+  color: white;
 }
-.mat {
+.maticon {
   cursor: pointer;
   padding-left: 95%;
 }
 
-#side {
+#page-content {
   padding-left: 2%;
 }
 .image {
   align-content: space-between;
 }
-#siz {
+#blade-size {
   font-size: medium;
 }
-.wid {
+.blade-data {
   width: 60%;
   background-color: rgb(16, 16, 65);
   color: white;
 }
-.name {
+.blade {
   font-size: xx-large;
 }
 
@@ -86,7 +89,6 @@ body {
 
 .sidenav {
   width: 350px;
-  
 }
 
 .sidenav .mat-toolbar {
@@ -102,17 +104,19 @@ body {
 .align {
   align-items: flex-end;
 }
-.input-box{
-  width:100%;
+.input-box {
+  width: 100%;
   height: 130px;
-  
 }
-.spacing{
+.note-spacing {
   padding-bottom: 50%;
   padding-left: 20%;
 }
-.imageNoteLength{
+.imageNoteLength {
   padding-left: 10%;
- 
-} 
-
+}
+.compare {
+  margin-left: 400px;
+  background-color: green;
+  color: white;
+}

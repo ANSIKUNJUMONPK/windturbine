@@ -14,7 +14,7 @@ export interface Note {
 
 export interface Category {
   auto: number;
-  validated: number;
+  validated: number|null;
 }
 export interface Image {
   image_cat: string;

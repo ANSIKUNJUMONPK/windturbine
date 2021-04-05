@@ -1,0 +1,62 @@
+<div
+  fxLayout="column"
+  fxLayoutAlign="space-around center"
+  class="category-spacing"
+>
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-around center"
+    class="category-spacing"
+  >
+    <img [src]="getImgSrc(category,isChange)" (click)="OnCatClick()" />
+
+    <div *ngIf="isClicked">
+      <div
+        fxLayout="column"
+        fxLayoutAlign="space-around center"
+        class="category-spacing"
+      >
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-around center"
+          class="category-spacing"
+        >
+          <img
+            src="../../assets/images/category-azure-filled.png"
+            (click)="catColorClick(bladeLabel, 1)"
+          />
+          <img
+            src="../../assets/images/category-green-filled.png"
+            (click)="catColorClick(bladeLabel, 2)"
+          />
+          <img
+            src="../../assets/images/category-yellow-filled.png"
+            (click)="catColorClick(bladeLabel, 3)"
+          />
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-around center"
+          class="category-spacing"
+        >
+          <img
+            src="../../assets/images/category-orange-filled.png"
+            (click)="catColorClick(bladeLabel, 4)"
+          />
+          <img
+            src="../../assets/images/category-red-filled.png"
+            (click)="catColorClick(bladeLabel, 5)"
+          />
+          <img [src]="getImgSelected(category)" (click)="resetCat(category)" />
+        </div>
+      </div>
+      </div>
+
+      {{
+        "cat. " +
+          (category.validated != null ? category.validated : category.auto)
+      }}
+      <br />
+    
+  </div>
+</div>

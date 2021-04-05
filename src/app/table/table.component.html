@@ -1,6 +1,7 @@
-<!-- <app-sidenav> -->
 <br />
-<mat-form-field appearance="fill" class="align">
+<!-- filter operations -->
+<!-- farm selection -->
+<mat-form-field appearance="fill" class="filter">
   <mat-label>Farm</mat-label>
   <mat-select
     multiple
@@ -13,6 +14,7 @@
     }}</mat-option>
   </mat-select>
 </mat-form-field>
+<!-- last inspection -->
 <mat-form-field appearance="fill">
   <mat-label>Last Inspection</mat-label>
   <mat-select
@@ -28,6 +30,7 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+<!-- WTG Id -->
 <mat-form-field appearance="fill">
   <mat-label>WTG ID</mat-label>
   <mat-select
@@ -41,6 +44,7 @@
     }}</mat-option>
   </mat-select>
 </mat-form-field>
+<!-- WTG Category -->
 <mat-form-field appearance="fill">
   <mat-label>WTG Category</mat-label>
   <mat-select
@@ -58,7 +62,7 @@
   </mat-select>
 </mat-form-field>
 <mat-icon>filter_list</mat-icon>
-
+<!-- table -->
 <ag-grid-angular
   style="width: 100%; height: 500px"
   class="ag-theme-alpine"
